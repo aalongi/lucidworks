@@ -1,0 +1,13 @@
+{
+  "name": "Search with AngularJS",
+  "description": "This project uses an iTunes API to search songs, built in AngularJS framework",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aalongi/lucidworks.git"
+  },
+  "author": "Ashley Alongi",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-webserver": "^0.9.1"
+  }
+}
