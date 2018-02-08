@@ -4,6 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Lucidworks Search</title>
         <link rel="stylesheet" href="https://use.typekit.net/ysl4cny.css">
         <link rel="stylesheet" href="css/toolkit.css">
@@ -11,33 +12,63 @@
         <script src="js/app.js"></script>
     </head>
 
-    <body class="u-bgGray u-padTop6">
-        <div ng-controller="SearchController">
-            <div class="u-sizeFull u-spaceTop6 u-textCenter u-spaceItems3">
-                <h2 class="u-textGreenDark">Find <strong>Goo Goo Dolls</strong> Songs</h2>
-                <div class="u-flex u-flexJustifyCenter">
-                    <div class="u-size3of4 u-md-size2of3 u-lg-size1of2">
-                        <div>
-                            <div class="u-flex">
-                                <div class="u-sizeFull">
-                                    <input class="u-sizeFull u-padSides01 u-padEnds01" placeholder="start typing a song name" autofocus ng-model="search">
+    <body class="u-bgGrayLight u-padTop">
+        <div ng-controller="SearchController" class="u-spaceItems6 u-padSides3">
+            <div>
+                <!-- Search -->
+                <div class="u-sizeFull u-spaceTop u-textCenter u-spaceItems3">
+                    <div class="Grid Grid--withGutter Grid--alignCenter Grid--alignMiddle">
+                        <div class="Grid-cell u-size2of5 u-md-size1of4 Grid Grid--alignMiddle u-spaceItems06 u-padRight1 u-spaceBottom1 u-md-spaceBottomNone">
+                            <img class="Grid-cell u-inlineBlock" src="/img/googoo-logo.png" alt="Goo Goo Dolls Logo">
+                            <p class="Grid-cell u-textShrink1 u-textAccent u-textLeft u-md-textRight">Song Directory</p>
+                        </div>
+                        <div class="Grid-cell u-md-size3of4 u-md-size2of3 u-lg-size1of2">
+                            <div>
+                                <div class="u-flex">
+                                    <div class="u-sizeFull">
+                                        <input class="u-sizeFull u-padSides01 u-padEnds1" placeholder="start typing a song name" autofocus ng-model="search">
+                                    </div>
+                                </div>
+                                <div class="u-posRelative">
+                                    <div class="u-posAbsolute u-sizeFull">
+                                        <ul class="u-flex u-flexCol u-spaceBottom6" ng-if="search">
+                                            <li class="u-block u-borderBottom u-borderColorWhite u-bgPeach" ng-repeat="results in itunes.results | filter: search | orderBy: 'trackName' | limitTo : 5 ">
+                                                <div class="Search-item u-flex u-flexAlignItemsCenter">
+                                                    <div>
+                                                        <p class="u-padSides01 u-padEnds01">{{results.trackName}}</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- show if input has a search -->
+
+            <!-- Results Grid -->
             <div class="u-sizeFull">
                 <div class="u-flex u-flexJustifyCenter">
-                    <div class="u-md-size2of3 u-lg-size1of2">
-                        <ul class="u-flex u-flexCol" ng-if="search">
-                            <li class="u-block u-borderLeft u-borderTop u-borderRight u-borderColorPeach u-bgWhite" ng-repeat="results in itunes.results | filter: search | orderBy: 'trackName'">
-                                <div class="u-flex u-flexAlignItemsCenter">
-                                    <img class="u-borderRadiusSm u-pad1" ng-src="{{results.artworkUrl100}}" alt="Photo of {{results.trackName}}">
-                                    <div class="media-body">
-                                        <h5 class="my-0 text-dark">{{results.trackName}}</h5>
-                                        <div class="text-secondary">${{results.trackPrice}}</div>
+                    <div class="u-sizeFull u-lg-size3of4">
+                        <ul class="u-flex u-flexCol u-spaceBottom6">
+                            <li class="u-block u-borderLeft u-borderTop u-borderRight u-borderColorPeach u-bgWhite" ng-repeat="results in itunes.results | orderBy: 'trackName' ">
+                                <div class="Search-item u-flex u-flexAlignItemsCenter">
+                                    <div class="u-size2of5 u-sm-size1of3 u-md-size2of6 u-lg-size1of5">
+                                        <img class="u-pad02 u-sm-pad1" ng-src="{{results.artworkUrl100}}" alt="Photo of {{results.trackName}}">
+                                    </div>
+                                    <div class="u-flex u-flexCol u-md-flexRow u-size3of5 u-sm-size2of3 u-md-size5of6 u-lg-size4of5 u-padRight01 u-spaceItems04">
+                                        <div class="u-md-size4of6 u-md-flexGrow1 u-md-padRight01">
+                                            <h5>{{results.trackName}}</h5>
+                                            <p class="u-textShrink1" ng-init="limit = 50">
+                                                {{results.collectionName | limitTo: limit}}
+                                                {{results.collectionName.length > limit ? '...' : ''}}
+                                            </p>
+                                        </div>
+                                        <div class="u-textGreen u-md-size1of6 u-md-flexAlignEnd u-textShrink1">
+                                            <p>{{results.releaseDate | date:"MM/yyyy"}}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </li>
