@@ -571,6 +571,18 @@ ul {
 * widths and offsets should be applied to child grid cells.
 */
 
+/* Search
+========================================================================== */
+/**
+* UI states
+*/
+.Search-item:hover,
+.Search-item:focus,
+.Search-item:active {
+  background: #e6e5e3;
+}
+
+
 /* Grid container
 ========================================================================== */
 
