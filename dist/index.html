@@ -47,13 +47,12 @@
                     </div>
                 </div>
             </div>
-
             <!-- Results Grid -->
             <div class="u-sizeFull">
                 <div class="u-flex u-flexJustifyCenter">
                     <div class="u-sizeFull u-lg-size3of4">
-                        <ul class="u-flex u-flexCol u-spaceBottom6">
-                            <li class="u-block u-borderLeft u-borderTop u-borderRight u-borderColorPeach u-bgWhite" ng-repeat="results in itunes.results | orderBy: 'trackName' ">
+                        <ul class="u-flex u-flexCol u-spaceBottom6 u-borderBottom u-borderColorPeach">
+                            <li class="u-block u-borderLeft u-borderTop u-borderRight u-borderColorPeach u-bgWhite" ng-repeat="results in itunes.results | pagination: curPage * pageSize | limitTo: pageSize">
                                 <div class="Search-item u-flex u-flexAlignItemsCenter">
                                     <div class="u-size2of5 u-sm-size1of3 u-md-size2of6 u-lg-size1of5">
                                         <img class="u-pad02 u-sm-pad1" ng-src="{{results.artworkUrl100}}" alt="Photo of {{results.trackName}}">
@@ -62,20 +61,31 @@
                                         <div class="u-md-size4of6 u-md-flexGrow1 u-md-padRight01">
                                             <h5>{{results.trackName}}</h5>
                                             <p class="u-textShrink1" ng-init="limit = 50">
-                                                {{results.collectionName | limitTo: limit}}
-                                                {{results.collectionName.length > limit ? '...' : ''}}
+                                                {{results.collectionName | limitTo: limit}} {{results.collectionName.length > limit ? '...' : ''}}
                                             </p>
                                         </div>
-                                        <div class="u-textGreen u-md-size1of6 u-md-flexAlignEnd u-textShrink1">
-                                            <p>{{results.releaseDate | date:"MM/yyyy"}}</p>
+                                        <div class="Search-itemText u-md-size1of6 u-md-flexAlignEnd u-textShrink1">
+                                            <p><em>{{results.releaseDate | date:"yyyy"}}</em></p>
                                         </div>
                                     </div>
                                 </div>
                             </li>
                         </ul>
+                        <div class="Grid Grid--withGutter Grid--alignCenter Grid--alignMiddle u-spaceBottom3 u-textCenter" ng-show="itunes.results.length">
+                            <div class="Grid-cell u-size1of4 u-md-size1of6">
+                                <button type="button" class="Button" ng-disabled="curPage == 0" ng-click="curPage=curPage-1">&#8249; <span class="u-hidden u-lg-inline">prev</span></button>
+                            </div>
+                            <div class="Grid-cell u-size1of4 u-md-size1of6">
+                                <span>{{curPage + 1}} of {{ pagesMath }}</span>
+                            </div>
+                            <div class="Grid-cell u-size1of4 u-md-size1of6">
+                                <button type="button" class="Button" ng-disabled="curPage >= itunes.results.length/pageSize - 1" ng-click="curPage = curPage+1"><span class="u-hidden u-lg-inline">next</span> &#8250;</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </body>
+
 </html>

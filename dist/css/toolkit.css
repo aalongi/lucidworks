@@ -579,7 +579,14 @@ ul {
 .Search-item:hover,
 .Search-item:focus,
 .Search-item:active {
-  background: #e6e5e3;
+  background: #5c635b;
+  color: #e4d5be;
+}
+
+.Search-itemText:hover,
+.Search-itemText:focus,
+.Search-itemText:active {
+  color: #e4d5be;
 }
 
 
@@ -8564,8 +8571,8 @@ h3 {
  * results in a loss of the default `button` focus styles.
  */
 .Button:focus {
-  outline: 1px dotted;
-  outline: 5px auto -webkit-focus-ring-color;
+  outline: 1px dotted #e6e5e3;
+  outline: 5px auto #e6e5e3;
 }
 
 .Button:hover {
